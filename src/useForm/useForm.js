@@ -12,7 +12,7 @@ const useForm = ({ initialValues, validate, onSubmit }) => {
     }
   };
 
-  const invalid = !!Object.keys(errors).find(error => errors[error]);
+  const invalid = !!Object.keys(errors).length;
   const pristine = equal(initialValues, values);
 
   const getFieldProps = name => ({
