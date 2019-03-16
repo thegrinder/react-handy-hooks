@@ -32,7 +32,7 @@ const useForm = ({ initialValues, validate, onSubmit }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!invalid) {
+    if (!invalid && onSubmit) {
       onSubmit(values);
     }
   }

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useForm returns the correct object 1`] = `
+Object {
+  "current": Object {
+    "getFieldProps": [Function],
+    "handleSubmit": [Function],
+    "invalid": false,
+    "pristine": true,
+    "resetForm": [Function],
+  },
+}
+`;
