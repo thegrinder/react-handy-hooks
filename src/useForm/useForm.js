@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import equal from 'fast-deep-equal';
 
 const useForm = ({ initialValues, validate, onSubmit }) => {
@@ -12,7 +12,12 @@ const useForm = ({ initialValues, validate, onSubmit }) => {
     }
   };
 
+  useEffect(() => {
+    runValidation(values);
+  }, []);
+
   const invalid = !!Object.keys(errors).length;
+
   const pristine = equal(initialValues, values);
 
   const getFieldProps = name => ({
