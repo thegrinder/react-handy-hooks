@@ -78,6 +78,7 @@
     "react": "^16.8.0"
   },
   "dependencies": {
+    "fast-deep-equal": "^2.0.1",
     "prop-types": "^15.7.2"
   }
 }

@@ -1,5 +1,5 @@
-import useAccordion from './useAccordion';
+import useForm from './useForm/useForm';
 
 export {
-  useAccordion,
+  useForm,
 };
