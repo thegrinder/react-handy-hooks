@@ -1,0 +1,95 @@
+---
+name: useAccordion
+menu: hooks
+---
+
+## useAccordion
+
+import { Playground } from 'docz';
+import { useAccordion } from '../';
+
+<Playground>
+  {() => {
+    const AccordionHeader = React.forwardRef((props, ref) => (
+      <button
+        aria-controls={props['aria-controls']}
+        aria-disabled={props['aria-disabled']}
+        aria-expanded={props['aria-expanded']}
+        id={props.id}
+        onClick={props.onClick}
+        onFocus={props.onFocus}
+        onKeyDown={props.onKeyDown}
+        style={{ fontSize: '16px' }}
+      >
+        {props.isOpen ? 'close' : 'open'}
+      </button>
+    ));
+
+    const AccordionSection = React.forwardRef((props, ref) => (
+      <div
+        aria-hidden={props['aria-hidden']}
+        aria-labelledby={props['aria-labelledby']}
+        id={props.id}
+        role={props.region}
+        style={props.style}
+      >
+        <div ref={ref}>
+          {props.children}
+        </div>
+      </div>
+    ));
+
+    const Example = () => {
+      const { getHeaderProps, getSectionProps, isActiveSection } = useAccordion();
+      const items = [
+        {
+          id: 'one',
+          header: 'header one',
+          section: 'section one'
+        },
+        {
+          id: 'two',
+          header: 'header two',
+          section: 'section two'
+        },
+      ];
+      return (
+        <div aria-label="accordion example">
+          {items.map(({ id, header, section }, index) => {
+            const headerProps = getHeaderProps(id, index);
+            const sectionProps = getSectionProps(id, index);
+            return (
+              <div key={id}>
+                <AccordionHeader
+                  isOpen={isActiveSection(index)}
+                  aria-controls={headerProps['aria-controls']}
+                  aria-disabled={headerProps['aria-disabled']}
+                  aria-expanded={headerProps['aria-expanded']}
+                  id={headerProps.id}
+                  onClick={headerProps.onClick}
+                  onFocus={headerProps.onFocus}
+                  onKeyDown={headerProps.onKeyDown}
+                >
+                  {header}
+                </AccordionHeader>
+                <AccordionSection
+                  aria-hidden={sectionProps['aria-hidden']}
+                  aria-labelledby={sectionProps['aria-labelledby']}
+                  id={sectionProps.id}
+                  role={sectionProps.region}
+                  style={sectionProps.style}
+                  ref={sectionProps.ref}
+                >
+                  {section}
+                </AccordionSection>
+              </div>
+            )
+          })}
+        </div>
+      );
+    };
+
+    return <Example />
+  }}
+</Playground>
+
