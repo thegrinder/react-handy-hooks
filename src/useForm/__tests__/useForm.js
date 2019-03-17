@@ -85,6 +85,7 @@ describe('useForm', () => {
       act(() => {
         result.current.getFieldProps('name').onChange({ target: { value: 'value' } });
       });
+      console.log(result.current.getFieldProps('name').value);
       expect(result.current.pristine).toEqual(false);
     });
   });
@@ -118,6 +119,31 @@ describe('useForm', () => {
         result.current.handleSubmit({ preventDefault });
       });
       expect(onSubmit).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('resetForm', () => {
+    it('should set form to its initial values', () => {
+      const { result } = renderHook(() => useForm({
+        initialValues,
+        onSubmit,
+        validate,
+      }));
+
+      act(() => {
+        result.current.getFieldProps('name').onChange({ target: { value: '' } });
+      });
+      act(() => {
+        result.current.getFieldProps('lastName').onChange({ target: { value: '' } });
+      });
+      expect(result.current.getFieldProps('name').value).toEqual('');
+      expect(result.current.getFieldProps('lastName').value).toEqual('');
+
+      act(() => {
+        result.current.resetForm();
+      });
+      expect(result.current.getFieldProps('name').value).toEqual(initialValues.name);
+      expect(result.current.getFieldProps('lastName').value).toEqual(initialValues.lastName);
     });
   });
 });
