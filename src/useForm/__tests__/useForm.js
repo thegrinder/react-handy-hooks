@@ -5,14 +5,15 @@ const initialValues = {
   name: 'name',
   lastName: 'lastName',
 };
+const errorMessage = 'required';
 const onSubmit = jest.fn();
 const validate = (values) => {
   const errors = {};
   if (values.name === '') {
-    errors.name = 'required name';
+    errors.name = errorMessage;
   }
   if (values.lastName === '') {
-    errors.lastName = 'required last name';
+    errors.lastName = errorMessage;
   }
   return errors;
 };
@@ -23,7 +24,7 @@ describe('useForm', () => {
     onSubmit.mockClear();
   });
 
-  it('returns the correct object', () => {
+  it('should return the correct object', () => {
     const { result } = renderHook(() => useForm({
       initialValues,
       onSubmit,
@@ -85,7 +86,6 @@ describe('useForm', () => {
       act(() => {
         result.current.getFieldProps('name').onChange({ target: { value: 'value' } });
       });
-      console.log(result.current.getFieldProps('name').value);
       expect(result.current.pristine).toEqual(false);
     });
   });
@@ -144,6 +144,52 @@ describe('useForm', () => {
       });
       expect(result.current.getFieldProps('name').value).toEqual(initialValues.name);
       expect(result.current.getFieldProps('lastName').value).toEqual(initialValues.lastName);
+    });
+  });
+
+  describe('getFieldProps', () => {
+    it('should return the correct object', () => {
+      const { result } = renderHook(() => useForm({
+        initialValues,
+        onSubmit,
+        validate,
+      }));
+      ['error', 'touched', 'value', 'onChange', 'onBlur'].forEach((property) => {
+        expect(result.current.getFieldProps('name')).toHaveProperty(property);
+        expect(result.current.getFieldProps('lastName')).toHaveProperty(property);
+      });
+      expect(result.current.getFieldProps('name')).toMatchSnapshot();
+      expect(result.current.getFieldProps('lastName')).toMatchSnapshot();
+    });
+  });
+
+  describe('onChange', () => {
+    it('should properly handle value change', () => {
+      const { result } = renderHook(() => useForm({
+        initialValues,
+        onSubmit,
+        validate,
+      }));
+      expect(result.current.getFieldProps('name')).toMatchObject({
+        value: initialValues.name,
+        error: undefined,
+      });
+
+      act(() => {
+        result.current.getFieldProps('name').onChange({ target: { value: 'test' } });
+      });
+      expect(result.current.getFieldProps('name')).toMatchObject({
+        value: 'test',
+        error: undefined,
+      });
+
+      act(() => {
+        result.current.getFieldProps('name').onChange({ target: { value: '' } });
+      });
+      expect(result.current.getFieldProps('name')).toMatchObject({
+        value: '',
+        error: errorMessage,
+      });
     });
   });
 });

@@ -22,7 +22,7 @@ const useForm = ({ initialValues, validate, onSubmit }) => {
 
   const getFieldProps = name => ({
     error: errors[name],
-    touched: touched[name],
+    touched: !!touched[name],
     value: values[name],
     onChange(e) {
       const newValues = { ...values, [name]: e.target.value };
