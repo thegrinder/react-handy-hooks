@@ -56,7 +56,6 @@
     "cz-conventional-changelog": "^2.1.0",
     "docz": "^0.13.7",
     "docz-theme-default": "^0.13.7",
-    "dom-testing-library": "^3.16.8",
     "eslint": "^5.14.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.16.0",
@@ -68,7 +67,7 @@
     "lint-staged": "^8.1.4",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-testing-library": "^6.0.0",
+    "react-hooks-testing-library": "^0.3.7",
     "semantic-release": "^15.13.3",
     "webpack": "4.28.4",
     "webpack-cli": "^3.2.3",
@@ -78,7 +77,6 @@
     "react": "^16.8.0"
   },
   "dependencies": {
-    "fast-deep-equal": "^2.0.1",
-    "prop-types": "^15.7.2"
+    "fast-deep-equal": "^2.0.1"
   }
 }

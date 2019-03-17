@@ -12,13 +12,6 @@ const reactExternal = {
   amd: 'react',
 };
 
-const reactDOMExternal = {
-  root: 'ReactDOM',
-  commonjs2: 'react-dom',
-  commonjs: 'react-dom',
-  amd: 'react-dom',
-};
-
 const prodConfig = {
   mode: 'production',
   devtool: 'source-map',
@@ -46,7 +39,6 @@ const prodConfig = {
   },
   externals: {
     react: reactExternal,
-    'react-dom': reactDOMExternal,
   },
 };
 
