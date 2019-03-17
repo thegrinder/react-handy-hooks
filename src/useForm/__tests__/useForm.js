@@ -192,4 +192,20 @@ describe('useForm', () => {
       });
     });
   });
+
+  describe('onBlur', () => {
+    it('should properly handle blur', () => {
+      const { result } = renderHook(() => useForm({
+        initialValues,
+        onSubmit,
+        validate,
+      }));
+      expect(result.current.getFieldProps('lastName').touched).toEqual(false);
+
+      act(() => {
+        result.current.getFieldProps('lastName').onBlur();
+      });
+      expect(result.current.getFieldProps('lastName').touched).toEqual(true);
+    });
+  });
 });

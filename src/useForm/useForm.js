@@ -31,7 +31,6 @@ const useForm = ({ initialValues, validate, onSubmit }) => {
     },
     onBlur() {
       updateTouched({ ...touched, [name]: true });
-      runValidation(values);
     },
   });
 
