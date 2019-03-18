@@ -5,6 +5,48 @@ menu: hooks
 
 ## useAccordion
 
+useAccordion is a react hook that returns two prop getters, `getHeaderProps` and `getSectionProps`, and an `isActiveSection` function,
+which allow you to build the tabs component you want without forgetting about accessibility.
+
+### **getHeaderProps**
+
+It's a function that takes in a unique id and index, and returns all the props that should be applied to each tab header.
+Here is the list of returned props:
+
+- aria-controls
+- aria-disabled
+- aria-expanded
+- id
+- key
+- onClick
+- onFocus
+- onKeyDown
+- ref
+
+If you spread these props over a custom component, make sure to properly pass down ref (typically, using `React.forwardRef`).
+
+
+### **getSectionProps**
+
+It's a function that takes in a unique id and index, and returns all the props that should be applied to each tab header.
+Here is the list of returned props:
+
+- aria-hidden
+- aria-labelledby
+- id
+- key
+- role
+- style
+- ref
+
+If you spread these props over a custom component, make sure to properly pass down ref (typically, using `React.forwardRef`).
+
+
+### **isActiveSection**
+
+It's a simple function that takes in an index of the tab header/section and returns true or false depending whether it's an active one or not.
+
+
 import { Playground } from 'docz';
 import { useAccordion } from '../';
 
@@ -14,11 +56,11 @@ import { useAccordion } from '../';
 import React from 'react';
 import { useAccordion } from 'react-handy-hooks';
 
-const AccordionHeader = (props) => (
+const AccordionHeader = React.forwardRef((props, ref) => (
   <button {...props} style={{ fontSize: '16px' }}>
     {props.isOpen ? 'close' : 'open'}
   </button>
-));
+)));
 
 const AccordionSection = React.forwardRef((props, ref) => (
   <div {...props}>
@@ -42,21 +84,17 @@ const Example = () => {
   ];
   return (
     <div aria-label="accordion example">
-      {items.map(({ id, header, section }, index) => {
-        const headerProps = getHeaderProps(id, index);
-        const sectionProps = getSectionProps(id, index);
-        return (
-          <div key={id}>
-            <AccordionHeader
-              isOpen={isActiveSection(index)}
-              {...getHeaderProps(id, index)}
-            />
-            <AccordionSection {...getSectionProps(id, index)}>
-              {section}
-            </AccordionSection>
-          </div>
-        )
-      })}
+      {items.map(({ id, header, section }, index) => (
+        <div key={id}>
+          <AccordionHeader
+            isOpen={isActiveSection(index)}
+            {...getHeaderProps(id, index)}
+          />
+          <AccordionSection {...getSectionProps(id, index)}>
+            {section}
+          </AccordionSection>
+        </div>
+      ))}
     </div>
   );
 };
@@ -75,6 +113,7 @@ const Example = () => {
         onFocus={props.onFocus}
         onKeyDown={props.onKeyDown}
         style={{ fontSize: '16px' }}
+        ref={ref}
       >
         {props.isOpen ? 'close' : 'open'}
       </button>
@@ -122,6 +161,7 @@ const Example = () => {
                   onClick={headerProps.onClick}
                   onFocus={headerProps.onFocus}
                   onKeyDown={headerProps.onKeyDown}
+                  ref={headerProps.ref}
                 />
                 <AccordionSection
                   aria-hidden={sectionProps['aria-hidden']}
