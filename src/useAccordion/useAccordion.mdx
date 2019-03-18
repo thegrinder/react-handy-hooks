@@ -84,7 +84,7 @@ const Example = () => {
   ];
   return (
     <div aria-label="accordion example">
-      {items.map(({ id, header, section }, index) => (
+      {items.map(({ id, section }, index) => (
         <div key={id}>
           <AccordionHeader
             isOpen={isActiveSection(index)}
@@ -147,7 +147,7 @@ const Example = () => {
       ];
       return (
         <div aria-label="accordion example">
-          {items.map(({ id, header, section }, index) => {
+          {items.map(({ id, section }, index) => {
             const headerProps = getHeaderProps(id, index);
             const sectionProps = getSectionProps(id, index);
             return (

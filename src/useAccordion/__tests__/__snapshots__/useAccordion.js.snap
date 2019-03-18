@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useAccordion should return the correct object 1`] = `
+Object {
+  "getHeaderProps": [Function],
+  "getSectionProps": [Function],
+  "isActiveSection": [Function],
+}
+`;
