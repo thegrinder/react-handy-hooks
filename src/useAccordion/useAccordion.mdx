@@ -8,6 +8,61 @@ menu: hooks
 import { Playground } from 'docz';
 import { useAccordion } from '../';
 
+### Example
+
+```js
+import React from 'react';
+import { useAccordion } from 'react-handy-hooks';
+
+const AccordionHeader = (props) => (
+  <button {...props} style={{ fontSize: '16px' }}>
+    {props.isOpen ? 'close' : 'open'}
+  </button>
+));
+
+const AccordionSection = React.forwardRef((props, ref) => (
+  <div {...props}>
+    <div ref={ref}>
+      {props.children}
+    </div>
+  </div>
+));
+
+const Example = () => {
+  const { getHeaderProps, getSectionProps, isActiveSection } = useAccordion();
+  const items = [
+    {
+      id: 'one',
+      section: 'section one'
+    },
+    {
+      id: 'two',
+      section: 'section two'
+    },
+  ];
+  return (
+    <div aria-label="accordion example">
+      {items.map(({ id, header, section }, index) => {
+        const headerProps = getHeaderProps(id, index);
+        const sectionProps = getSectionProps(id, index);
+        return (
+          <div key={id}>
+            <AccordionHeader
+              isOpen={isActiveSection(index)}
+              {...getHeaderProps(id, index)}
+            />
+            <AccordionSection {...getSectionProps(id, index)}>
+              {section}
+            </AccordionSection>
+          </div>
+        )
+      })}
+    </div>
+  );
+};
+```
+
+##### &ast; due to docz limiation, props cannot be spread in the playground (use the code from the snippet above)
 <Playground>
   {() => {
     const AccordionHeader = React.forwardRef((props, ref) => (
@@ -44,12 +99,10 @@ import { useAccordion } from '../';
       const items = [
         {
           id: 'one',
-          header: 'header one',
           section: 'section one'
         },
         {
           id: 'two',
-          header: 'header two',
           section: 'section two'
         },
       ];
@@ -69,9 +122,7 @@ import { useAccordion } from '../';
                   onClick={headerProps.onClick}
                   onFocus={headerProps.onFocus}
                   onKeyDown={headerProps.onKeyDown}
-                >
-                  {header}
-                </AccordionHeader>
+                />
                 <AccordionSection
                   aria-hidden={sectionProps['aria-hidden']}
                   aria-labelledby={sectionProps['aria-labelledby']}
