@@ -3,7 +3,56 @@ name: useForm
 menu: hooks
 ---
 
-## useForm
+# useForm
+
+useAccordion is a simple react hook that allows you to build forms quickly.
+
+## Arguments
+
+useAccordion accepts an object with `initialValues`, `validate`, and `onSubmit` properties as its only argument.
+
+### **initialValues**
+
+It's the only required property. It's an object consisting of field names and its corresponding values.
+
+### **validate**
+
+It's a function that returns errors object where the keys are the field names and the values - the corresponding errors.
+
+### **onSubmit**
+
+It's a function called with form values.
+
+## Returned object
+
+useAccordion returns an object with the following properties, `getFieldProps`, `invalid`, `pristine`, `handleSubmit`and `resetForm`.
+
+### **getFieldProps**
+
+It's a function that takes in a field's name, and returns all the handlers and flags needed to to create a form field.
+Here is the list of returned handlers/flags:
+
+- error
+- touched
+- value
+- onChange
+- onBlur
+
+### **invalid**
+
+It's a boolean that signals whether the form is invalid.
+
+### **pristine**
+
+It's a boolean that signals whether the form values are equal to its initial values.
+
+### **handleSubmit**
+
+It's a wrapper function around the given onSubmit that should be applied to form's onSubmit or submit button's onClick.
+
+### **resetForm**
+
+It's a function that resets the form to its initialState;.
 
 import { Playground } from 'docz';
 import { useForm } from '../';
@@ -12,9 +61,9 @@ import { useForm } from '../';
   {() => {
     const Input = ({ error, touched, value, onChange, onBlur }) => (
       <div>
-        <input 
-          onChange={onChange} 
-          onBlur={onBlur} 
+        <input
+          onChange={onChange}
+          onBlur={onBlur}
           value={value}
         />
         <div>
@@ -48,12 +97,12 @@ import { useForm } from '../';
       const { error, touched, value, onChange, onBlur } = getFieldProps('name');
       return (
         <form onSubmit={handleSubmit}>
-          <Input 
-            error={error} 
-            touched={touched} 
-            value={value} 
-            onChange={onChange} 
-            onBlur={onBlur} 
+          <Input
+            error={error}
+            touched={touched}
+            value={value}
+            onChange={onChange}
+            onBlur={onBlur}
           />
           <div>
             <button disabled={pristine || invalid}>submit</button>
