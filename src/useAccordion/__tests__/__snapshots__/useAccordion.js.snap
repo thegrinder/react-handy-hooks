@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useAccordion should return correct props from getHeaderProps 1`] = `
+Object {
+  "aria-controls": "id-tab",
+  "aria-disabled": false,
+  "aria-expanded": false,
+  "id": "id",
+  "key": "id",
+  "onClick": [Function],
+  "onFocus": [Function],
+  "onKeyDown": [Function],
+  "ref": [Function],
+}
+`;
+
+exports[`useAccordion should return correct props from getSectionProps 1`] = `
+Object {
+  "aria-hidden": true,
+  "aria-labelledby": "id",
+  "id": "id-tab",
+  "key": "id-tab",
+  "ref": [Function],
+  "role": "region",
+  "style": Object {
+    "height": "0px",
+    "overflow": "hidden",
+    "transition": "height 200ms linear",
+  },
+}
+`;
+
+exports[`useAccordion should return the correct object 1`] = `
+Object {
+  "getHeaderProps": [Function],
+  "getSectionProps": [Function],
+  "isActiveSection": [Function],
+}
+`;
