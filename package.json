@@ -4,7 +4,10 @@
   "description": "Set of useful react hooks",
   "keywords": [
     "react",
-    "hooks"
+    "hooks",
+    "form",
+    "accordion",
+    "accessibility"
   ],
   "homepage": "https://thegrinder.github.io/react-handy-hooks",
   "repository": {
