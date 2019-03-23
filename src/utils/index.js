@@ -4,11 +4,13 @@ const keyCodesToKey = {
   13: 'Enter',
   27: 'Escape',
   32: ' ',
+  37: 'ArrowLeft',
   38: 'ArrowUp',
+  39: 'ArrowRight',
   40: 'ArrowDown',
 };
 
-const isKey = key => (event) => {
+export const isKey = key => (event) => {
   const eventKey = event.key || keyCodesToKey[event.keyCode];
   return key === eventKey;
 };
