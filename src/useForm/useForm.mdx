@@ -84,12 +84,17 @@ const validate = (values) => {
   return errors;
 };
 
+const initialValues = {
+  name: '',
+};
+
 const onSubmit = values => {
   alert(JSON.stringify(values));
 };
 
 const Example = () => {
   const { pristine, invalid, getFieldProps, handleSubmit } = useForm({
+    initialValues,
     validate,
     onSubmit,
   });
@@ -137,12 +142,17 @@ import { useForm } from '../';
       return errors;
     };
 
+    const initialValues = {
+      name: '',
+    };
+
     const onSubmit = values => {
       alert(JSON.stringify(values));
     };
 
     const Example = () => {
       const { pristine, invalid, getFieldProps, handleSubmit } = useForm({
+        initialValues,
         validate,
         onSubmit,
       });
