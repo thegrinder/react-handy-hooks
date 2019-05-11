@@ -161,6 +161,15 @@ describe('useForm', () => {
       expect(result.current.getFieldProps('name')).toMatchSnapshot();
       expect(result.current.getFieldProps('lastName')).toMatchSnapshot();
     });
+
+    it('should initialize the field with empty string if no initialValues are provided', () => {
+      const { result } = renderHook(() => useForm({
+        onSubmit,
+        validate,
+      }));
+      expect(result.current.getFieldProps('name').value).toEqual('');
+      expect(result.current.getFieldProps('lastName').value).toEqual('');
+    });
   });
 
   describe('onChange', () => {

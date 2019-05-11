@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import equal from 'fast-deep-equal';
 
-const useForm = ({ initialValues, validate, onSubmit }) => {
+const useForm = ({ initialValues = {}, validate, onSubmit }) => {
   const [values, updateValues] = useState(initialValues);
   const [errors, updateErrors] = useState({});
   const [touched, updateTouched] = useState({});
@@ -23,7 +23,7 @@ const useForm = ({ initialValues, validate, onSubmit }) => {
   const getFieldProps = name => ({
     error: errors[name],
     touched: !!touched[name],
-    value: values[name],
+    value: values[name] === undefined ? '' : values[name],
     onChange(e) {
       const newValues = { ...values, [name]: e.target.value };
       updateValues(newValues);
