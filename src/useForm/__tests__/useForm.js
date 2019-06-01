@@ -154,7 +154,7 @@ describe('useForm', () => {
         onSubmit,
         validate,
       }));
-      ['error', 'touched', 'value', 'onChange', 'onBlur'].forEach((property) => {
+      ['error', 'submitting', 'touched', 'value', 'onChange', 'onBlur'].forEach((property) => {
         expect(result.current.getFieldProps('name')).toHaveProperty(property);
         expect(result.current.getFieldProps('lastName')).toHaveProperty(property);
       });

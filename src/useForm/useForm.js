@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import equal from 'fast-deep-equal';
 
-const useForm = ({ initialValues, validate, onSubmit }) => {
+const useForm = ({ initialValues, validate, onSubmit, submitting = false }) => {
   const [values, updateValues] = useState(initialValues);
   const [errors, updateErrors] = useState({});
   const [touched, updateTouched] = useState({});
@@ -21,6 +21,7 @@ const useForm = ({ initialValues, validate, onSubmit }) => {
   const pristine = equal(initialValues, values);
 
   const getFieldProps = name => ({
+    submitting,
     error: errors[name],
     touched: !!touched[name],
     value: values[name],
