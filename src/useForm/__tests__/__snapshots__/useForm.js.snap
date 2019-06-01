@@ -5,6 +5,7 @@ Object {
   "error": undefined,
   "onBlur": [Function],
   "onChange": [Function],
+  "submitting": false,
   "touched": false,
   "value": "name",
 }
@@ -15,6 +16,7 @@ Object {
   "error": undefined,
   "onBlur": [Function],
   "onChange": [Function],
+  "submitting": false,
   "touched": false,
   "value": "lastName",
 }
