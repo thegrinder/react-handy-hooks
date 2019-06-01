@@ -6,7 +6,7 @@ const useForm = ({ initialValues, validate, onSubmit, submitting = false }) => {
   const [errors, updateErrors] = useState({});
   const [touched, updateTouched] = useState({});
 
-  const runValidation = (formValues) => {
+  const runValidation = formValues => {
     if (validate) {
       updateErrors(validate(formValues));
     }

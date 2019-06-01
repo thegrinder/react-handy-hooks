@@ -7,7 +7,7 @@ const initialValues = {
 };
 const errorMessage = 'required';
 const onSubmit = jest.fn();
-const validate = (values) => {
+const validate = values => {
   const errors = {};
   if (values.name === '') {
     errors.name = errorMessage;
@@ -24,12 +24,20 @@ describe('useForm', () => {
   });
 
   it('should return the correct object', () => {
-    const { result } = renderHook(() => useForm({
-      initialValues,
-      onSubmit,
-      validate,
-    }));
-    ['getFieldProps', 'invalid', 'pristine', 'handleSubmit', 'resetForm'].forEach((property) => {
+    const { result } = renderHook(() =>
+      useForm({
+        initialValues,
+        onSubmit,
+        validate,
+      })
+    );
+    [
+      'getFieldProps',
+      'invalid',
+      'pristine',
+      'handleSubmit',
+      'resetForm',
+    ].forEach(property => {
       expect(result.current).toHaveProperty(property);
     });
     expect(result.current).toMatchSnapshot();
@@ -37,53 +45,65 @@ describe('useForm', () => {
 
   describe('invalid form flag', () => {
     it('should be false if no validate function is provided', () => {
-      const { result } = renderHook(() => useForm({
-        initialValues,
-        onSubmit,
-      }));
+      const { result } = renderHook(() =>
+        useForm({
+          initialValues,
+          onSubmit,
+        })
+      );
       expect(result.current.invalid).toEqual(false);
     });
 
     it('should be false if the fields are valid', () => {
-      const { result } = renderHook(() => useForm({
-        initialValues,
-        onSubmit,
-        validate,
-      }));
+      const { result } = renderHook(() =>
+        useForm({
+          initialValues,
+          onSubmit,
+          validate,
+        })
+      );
       expect(result.current.invalid).toEqual(false);
     });
 
     it('should be true if at least one of fields is invalid', () => {
-      const { result } = renderHook(() => useForm({
-        initialValues: {
-          ...initialValues,
-          name: '',
-        },
-        onSubmit,
-        validate,
-      }));
+      const { result } = renderHook(() =>
+        useForm({
+          initialValues: {
+            ...initialValues,
+            name: '',
+          },
+          onSubmit,
+          validate,
+        })
+      );
       expect(result.current.invalid).toEqual(true);
     });
   });
 
   describe('pristine form flag', () => {
     it('should be true when the form is initialized', () => {
-      const { result } = renderHook(() => useForm({
-        initialValues,
-        onSubmit,
-        validate,
-      }));
+      const { result } = renderHook(() =>
+        useForm({
+          initialValues,
+          onSubmit,
+          validate,
+        })
+      );
       expect(result.current.pristine).toEqual(true);
     });
 
     it('should be false if one of the field values has changed', () => {
-      const { result } = renderHook(() => useForm({
-        initialValues,
-        onSubmit,
-        validate,
-      }));
+      const { result } = renderHook(() =>
+        useForm({
+          initialValues,
+          onSubmit,
+          validate,
+        })
+      );
       act(() => {
-        result.current.getFieldProps('name').onChange({ target: { value: 'value' } });
+        result.current
+          .getFieldProps('name')
+          .onChange({ target: { value: 'value' } });
       });
       expect(result.current.pristine).toEqual(false);
     });
@@ -92,11 +112,13 @@ describe('useForm', () => {
   describe('handleSubmit', () => {
     it('should fire provided onSubmit callback with form values', () => {
       const preventDefault = jest.fn();
-      const { result } = renderHook(() => useForm({
-        initialValues,
-        onSubmit,
-        validate,
-      }));
+      const { result } = renderHook(() =>
+        useForm({
+          initialValues,
+          onSubmit,
+          validate,
+        })
+      );
       act(() => {
         result.current.handleSubmit({ preventDefault });
       });
@@ -106,14 +128,16 @@ describe('useForm', () => {
 
     it('should not fire provided onSubmit callback if the form is invalid', () => {
       const preventDefault = jest.fn();
-      const { result } = renderHook(() => useForm({
-        initialValues: {
-          ...initialValues,
-          name: '',
-        },
-        onSubmit,
-        validate,
-      }));
+      const { result } = renderHook(() =>
+        useForm({
+          initialValues: {
+            ...initialValues,
+            name: '',
+          },
+          onSubmit,
+          validate,
+        })
+      );
       act(() => {
         result.current.handleSubmit({ preventDefault });
       });
@@ -123,17 +147,23 @@ describe('useForm', () => {
 
   describe('resetForm', () => {
     it('should set form to its initial values', () => {
-      const { result } = renderHook(() => useForm({
-        initialValues,
-        onSubmit,
-        validate,
-      }));
+      const { result } = renderHook(() =>
+        useForm({
+          initialValues,
+          onSubmit,
+          validate,
+        })
+      );
 
       act(() => {
-        result.current.getFieldProps('name').onChange({ target: { value: '' } });
+        result.current
+          .getFieldProps('name')
+          .onChange({ target: { value: '' } });
       });
       act(() => {
-        result.current.getFieldProps('lastName').onChange({ target: { value: '' } });
+        result.current
+          .getFieldProps('lastName')
+          .onChange({ target: { value: '' } });
       });
       expect(result.current.getFieldProps('name').value).toEqual('');
       expect(result.current.getFieldProps('lastName').value).toEqual('');
@@ -141,22 +171,32 @@ describe('useForm', () => {
       act(() => {
         result.current.resetForm();
       });
-      expect(result.current.getFieldProps('name').value).toEqual(initialValues.name);
-      expect(result.current.getFieldProps('lastName').value).toEqual(initialValues.lastName);
+      expect(result.current.getFieldProps('name').value).toEqual(
+        initialValues.name
+      );
+      expect(result.current.getFieldProps('lastName').value).toEqual(
+        initialValues.lastName
+      );
     });
   });
 
   describe('getFieldProps', () => {
     it('should return the correct object', () => {
-      const { result } = renderHook(() => useForm({
-        initialValues,
-        onSubmit,
-        validate,
-      }));
-      ['error', 'submitting', 'touched', 'value', 'onChange', 'onBlur'].forEach((property) => {
-        expect(result.current.getFieldProps('name')).toHaveProperty(property);
-        expect(result.current.getFieldProps('lastName')).toHaveProperty(property);
-      });
+      const { result } = renderHook(() =>
+        useForm({
+          initialValues,
+          onSubmit,
+          validate,
+        })
+      );
+      ['error', 'submitting', 'touched', 'value', 'onChange', 'onBlur'].forEach(
+        property => {
+          expect(result.current.getFieldProps('name')).toHaveProperty(property);
+          expect(result.current.getFieldProps('lastName')).toHaveProperty(
+            property
+          );
+        }
+      );
       expect(result.current.getFieldProps('name')).toMatchSnapshot();
       expect(result.current.getFieldProps('lastName')).toMatchSnapshot();
     });
@@ -164,18 +204,22 @@ describe('useForm', () => {
 
   describe('onChange', () => {
     it('should properly handle value change', () => {
-      const { result } = renderHook(() => useForm({
-        initialValues,
-        onSubmit,
-        validate,
-      }));
+      const { result } = renderHook(() =>
+        useForm({
+          initialValues,
+          onSubmit,
+          validate,
+        })
+      );
       expect(result.current.getFieldProps('name')).toMatchObject({
         value: initialValues.name,
         error: undefined,
       });
 
       act(() => {
-        result.current.getFieldProps('name').onChange({ target: { value: 'test' } });
+        result.current
+          .getFieldProps('name')
+          .onChange({ target: { value: 'test' } });
       });
       expect(result.current.getFieldProps('name')).toMatchObject({
         value: 'test',
@@ -183,7 +227,9 @@ describe('useForm', () => {
       });
 
       act(() => {
-        result.current.getFieldProps('name').onChange({ target: { value: '' } });
+        result.current
+          .getFieldProps('name')
+          .onChange({ target: { value: '' } });
       });
       expect(result.current.getFieldProps('name')).toMatchObject({
         value: '',
@@ -194,11 +240,13 @@ describe('useForm', () => {
 
   describe('onBlur', () => {
     it('should properly handle blur', () => {
-      const { result } = renderHook(() => useForm({
-        initialValues,
-        onSubmit,
-        validate,
-      }));
+      const { result } = renderHook(() =>
+        useForm({
+          initialValues,
+          onSubmit,
+          validate,
+        })
+      );
       expect(result.current.getFieldProps('lastName').touched).toEqual(false);
 
       act(() => {
