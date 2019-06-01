@@ -9,17 +9,21 @@ describe('useAccordion', () => {
   });
 
   it('should return the correct object', () => {
-    ['getHeaderProps', 'getSectionProps', 'isActiveSection'].forEach((property) => {
-      expect(hook.current).toHaveProperty(property);
-    });
+    ['getHeaderProps', 'getSectionProps', 'isActiveSection'].forEach(
+      property => {
+        expect(hook.current).toHaveProperty(property);
+      }
+    );
     expect(hook.current).toMatchSnapshot();
   });
 
   it('should return linked header and section attributes', () => {
-    expect(hook.current.getHeaderProps('id', 0)['aria-controls'])
-      .toEqual(hook.current.getSectionProps('id', 0).id);
-    expect(hook.current.getHeaderProps('id', 0).id)
-      .toEqual(hook.current.getSectionProps('id', 0)['aria-labelledby']);
+    expect(hook.current.getHeaderProps('id', 0)['aria-controls']).toEqual(
+      hook.current.getSectionProps('id', 0).id
+    );
+    expect(hook.current.getHeaderProps('id', 0).id).toEqual(
+      hook.current.getSectionProps('id', 0)['aria-labelledby']
+    );
   });
 
   it('should correctly open and close sections', () => {
@@ -48,8 +52,12 @@ describe('useAccordion', () => {
   });
 
   it('should return correct attributes if the header/section is active', () => {
-    expect(hook.current.getHeaderProps('id', 0)['aria-disabled']).toEqual(false);
-    expect(hook.current.getHeaderProps('id', 0)['aria-expanded']).toEqual(false);
+    expect(hook.current.getHeaderProps('id', 0)['aria-disabled']).toEqual(
+      false
+    );
+    expect(hook.current.getHeaderProps('id', 0)['aria-expanded']).toEqual(
+      false
+    );
     expect(hook.current.getSectionProps('id', 0)['aria-hidden']).toEqual(true);
   });
 
@@ -77,12 +85,16 @@ describe('useAccordion', () => {
     });
 
     act(() => {
-      hook.current.getHeaderProps('one', 0).onKeyDown({ key: 'ArrowDown', preventDefault });
+      hook.current
+        .getHeaderProps('one', 0)
+        .onKeyDown({ key: 'ArrowDown', preventDefault });
     });
     expect(focusTwo).toHaveBeenCalled();
 
     act(() => {
-      hook.current.getHeaderProps('two', 1).onKeyDown({ key: 'ArrowUp', preventDefault });
+      hook.current
+        .getHeaderProps('two', 1)
+        .onKeyDown({ key: 'ArrowUp', preventDefault });
     });
     expect(focusOne).toHaveBeenCalled();
   });

@@ -4,7 +4,7 @@ import { mod, isArrowDown, isArrowUp } from '../utils';
 const useAccordion = () => {
   const headersRefs = useRef([]).current;
 
-  const getHeaderRef = index => (node) => {
+  const getHeaderRef = index => node => {
     if (node === null) {
       headersRefs.splice(index, 1);
     } else {
@@ -14,7 +14,7 @@ const useAccordion = () => {
 
   const sectionsRefs = useRef([]).current;
 
-  const getSectionRef = index => (node) => {
+  const getSectionRef = index => node => {
     if (node === null) {
       sectionsRefs.splice(index, 1);
     } else {
@@ -26,7 +26,7 @@ const useAccordion = () => {
 
   const isActiveSection = index => activeSections.includes(index);
 
-  const getSectionStyle = (index) => {
+  const getSectionStyle = index => {
     const sectionRef = sectionsRefs[index];
     const baseStyle = {
       overflow: 'hidden',
@@ -38,13 +38,12 @@ const useAccordion = () => {
     return { ...baseStyle, height: `${sectionRef.clientHeight}px` };
   };
 
-  const toggleAccordionSection = index => (
-    updateActiveSections(prevSections => (
+  const toggleAccordionSection = index =>
+    updateActiveSections(prevSections =>
       prevSections.includes(index)
         ? prevSections.filter(i => i !== index)
         : prevSections.concat(index)
-    ))
-  );
+    );
 
   const [cursorPosition, updateCursorPosition] = useState(-1);
 
@@ -53,7 +52,7 @@ const useAccordion = () => {
     toggleAccordionSection(index);
   };
 
-  const focusOnHeader = (nextCursorPosition) => {
+  const focusOnHeader = nextCursorPosition => {
     const headerRef = headersRefs[nextCursorPosition];
     if (headerRef) {
       headerRef.focus();
@@ -64,7 +63,7 @@ const useAccordion = () => {
 
   const getLinkingId = id => `${id}-tab`;
 
-  const onKeyDown = (e) => {
+  const onKeyDown = e => {
     const { length } = headersRefs;
     if (isArrowUp(e)) {
       e.preventDefault();

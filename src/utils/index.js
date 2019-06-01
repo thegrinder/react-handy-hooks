@@ -10,7 +10,7 @@ const keyCodesToKey = {
   40: 'ArrowDown',
 };
 
-export const isKey = key => (event) => {
+export const isKey = key => event => {
   const eventKey = event.key || keyCodesToKey[event.keyCode];
   return key === eventKey;
 };
