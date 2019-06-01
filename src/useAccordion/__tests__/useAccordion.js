@@ -1,4 +1,4 @@
-import { renderHook, cleanup, act } from 'react-hooks-testing-library';
+import { renderHook, act } from 'react-hooks-testing-library';
 import useAccordion from '../useAccordion';
 
 describe('useAccordion', () => {
@@ -7,8 +7,6 @@ describe('useAccordion', () => {
   beforeEach(() => {
     hook = renderHook(() => useAccordion()).result;
   });
-
-  afterEach(cleanup);
 
   it('should return the correct object', () => {
     ['getHeaderProps', 'getSectionProps', 'isActiveSection'].forEach((property) => {

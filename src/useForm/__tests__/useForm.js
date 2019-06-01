@@ -1,4 +1,4 @@
-import { renderHook, cleanup, act } from 'react-hooks-testing-library';
+import { renderHook, act } from 'react-hooks-testing-library';
 import useForm from '../useForm';
 
 const initialValues = {
@@ -20,7 +20,6 @@ const validate = (values) => {
 
 describe('useForm', () => {
   afterEach(() => {
-    cleanup();
     onSubmit.mockClear();
   });
 
