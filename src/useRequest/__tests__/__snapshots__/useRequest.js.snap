@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useRequest should return the correct object 1`] = `
+Object {
+  "actions": Object {
+    "failed": [Function],
+    "loading": [Function],
+    "succeeded": [Function],
+  },
+  "state": Object {
+    "data": Object {},
+    "error": null,
+    "initialLoad": true,
+    "loading": false,
+    "succeeded": false,
+  },
+}
+`;
