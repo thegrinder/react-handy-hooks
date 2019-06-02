@@ -63,60 +63,6 @@ It's a function that resets the form to its initialState;.
 
 ## Example
 
-```js
-const Input = ({ error, touched, value, onChange, onBlur }) => (
-  <div>
-    <input
-      onChange={onChange}
-      onBlur={onBlur}
-      value={value}
-    />
-    <div>
-      {touched && error && <span style={{ color: 'red' }}>{error}</span>}
-    </div>
-  </div>
-);
-
-const validate = (values) => {
-  let errors = {};
-  if (values.name === '') {
-    errors.name = 'required';
-  }
-  return errors;
-};
-
-const initialValues = {
-  name: '',
-};
-
-const onSubmit = values => {
-  alert(JSON.stringify(values));
-};
-
-const Example = () => {
-  const { pristine, invalid, getFieldProps, handleSubmit } = useForm({
-    initialValues,
-    validate,
-    onSubmit,
-  });
-  const { error, touched, value, onChange, onBlur } = getFieldProps('name');
-  return (
-    <form onSubmit={handleSubmit}>
-      <Input
-        error={error}
-        touched={touched}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-      />
-      <div>
-        <button disabled={pristine || invalid}>submit</button>
-      </div>
-    </form>
-  );
-};
-```
-
 import { Playground } from 'docz';
 import { useForm } from '../';
 
