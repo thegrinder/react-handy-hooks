@@ -1,0 +1,85 @@
+---
+name: useRequest
+menu: hooks
+---
+
+# useRequest
+
+useRequest is a hook that is designed to handle request state. It uses `useReducer` under the hood and returns state and three actions to update it.
+
+## state
+
+The return state has the following properties
+
+- loading
+- initialLoad
+- succeeded
+- error
+- data
+
+## actions
+
+### loading
+- flips `loading` to `true`
+- flips `succeeded` to `false`
+- resets `error` to `null`
+
+### succeeded
+- flips `loading` to `false`
+- flips `succeeded` to `true`
+- flips `initialLoad` to `false`
+- populates `data` with the given argument
+
+### failed
+- flips `loading` to `false`
+- flips `initialLoad` to `false`
+- populates `error` with the given argument
+
+## Example
+
+import { Playground } from 'docz';
+import { useRequest } from '../';
+
+<Playground>
+  {() => {
+    const UseRequestDemo = () => {
+      const { state, actions } = useRequest();
+
+      const mockRequest = () => new Promise((resolve, reject) => {
+        return setTimeout(() => {
+          Math.floor(Math.random() * 2) == 0
+            ? resolve({ response: 'success' })
+            : reject('oops!')
+        }, 1000);
+      });
+
+      const makeRequest = () => {
+        actions.loading();
+        mockRequest()
+          .then(response => actions.succeeded(response))
+          .catch(error => actions.failed(error));
+      };
+
+      return (
+        <div>
+          <button onClick={makeRequest}>
+            make request
+          </button>
+          {state.loading && (
+            <div>loading...</div>
+          )}
+          {Object.keys(state.data).length !== 0 && (
+            <div>
+              response: {state.data.response}
+            </div>
+          )}
+          {state.error && (
+            <div>error: {state.error}</div>
+          )}
+        </div>
+      )
+    }
+
+    return <UseRequestDemo />
+  }}
+</Playground>
