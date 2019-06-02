@@ -9,7 +9,7 @@ const useRequest = () => {
     data: {},
   };
 
-  const namespace = 'app/modules/request';
+  const namespace = 'useRequest';
   const actionTypes = {
     LOADING: `${namespace}/LOADING`,
     SUCCEEDED: `${namespace}/SUCCEEDED`,
