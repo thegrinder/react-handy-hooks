@@ -35,6 +35,7 @@ describe('useForm', () => {
       'getFieldProps',
       'invalid',
       'pristine',
+      'submitting',
       'handleSubmit',
       'resetForm',
     ].forEach(property => {
@@ -106,6 +107,32 @@ describe('useForm', () => {
           .onChange({ target: { value: 'value' } });
       });
       expect(result.current.pristine).toEqual(false);
+    });
+  });
+
+  describe('submitting form flag', () => {
+    it('should be false by default', () => {
+      const { result } = renderHook(() =>
+        useForm({
+          initialValues,
+          onSubmit,
+          validate,
+        })
+      );
+      expect(result.current.submitting).toEqual(false);
+    });
+
+    it('should be the same as the submitting argument', () => {
+      const submitting = true;
+      const { result } = renderHook(() =>
+        useForm({
+          initialValues,
+          onSubmit,
+          validate,
+          submitting,
+        })
+      );
+      expect(result.current.submitting).toEqual(submitting);
     });
   });
 

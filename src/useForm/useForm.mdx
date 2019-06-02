@@ -11,7 +11,7 @@ useForm is a simple react hook that allows you to build forms quickly.
 
 ## Arguments
 
-useForm accepts an object with `initialValues`, `validate`, and `onSubmit` properties as its only argument.
+useForm accepts an object with `initialValues`, `validate`, `submitting`, and `onSubmit` properties as its only argument.
 
 ### **initialValues**
 
@@ -24,6 +24,10 @@ It's a function that returns errors object where the keys are the field names an
 ### **onSubmit**
 
 It's a function called with form values.
+
+### **submitting**
+
+It's a boolean passed down to getFieldProps and returned from the hook to facilitate usage with context. It's set to false by default
 
 
 
@@ -50,6 +54,10 @@ It's a boolean that signals whether the form is invalid.
 ### **pristine**
 
 It's a boolean that signals whether the form values are equal to its initial values.
+
+### **submitting**
+
+It's a boolean with the same value as the submitting property of the hook argument. Just a convenience flag.
 
 ### **handleSubmit**
 

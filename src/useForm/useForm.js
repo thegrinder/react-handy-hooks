@@ -52,6 +52,7 @@ const useForm = ({ initialValues, validate, onSubmit, submitting = false }) => {
     getFieldProps,
     invalid,
     pristine,
+    submitting,
     handleSubmit,
     resetForm,
   };

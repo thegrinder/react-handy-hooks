@@ -29,5 +29,6 @@ Object {
   "invalid": false,
   "pristine": true,
   "resetForm": [Function],
+  "submitting": false,
 }
 `;
