@@ -59,4 +59,16 @@ describe('useRequest', () => {
       initialLoad: false,
     });
   });
+
+  it('should handle fulfilled action', () => {
+    const { result } = renderHook(() => useRequest());
+    act(() => {
+      result.current.actions.fulfilled();
+    });
+    expect(result.current.state).toEqual({
+      ...initialRequestState,
+      loading: false,
+      initialLoad: false,
+    });
+  });
 });

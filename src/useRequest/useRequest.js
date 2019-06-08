@@ -14,12 +14,14 @@ const useRequest = () => {
     LOADING: `${namespace}/LOADING`,
     SUCCEEDED: `${namespace}/SUCCEEDED`,
     FAILED: `${namespace}/FAILED`,
+    FULFILLED: `${namespace}/FULFILLED`,
   };
 
   const actionCreators = {
     loading: () => ({ type: actionTypes.LOADING }),
     succeeded: (data = {}) => ({ data, type: actionTypes.SUCCEEDED }),
     failed: error => ({ error, type: actionTypes.FAILED }),
+    fulfilled: () => ({ type: actionTypes.FULFILLED }),
   };
 
   const reducer = (state, action) => {
@@ -46,6 +48,12 @@ const useRequest = () => {
           initialLoad: false,
           error: action.error,
         };
+      case actionTypes.FULFILLED:
+        return {
+          ...state,
+          loading: false,
+          initialLoad: false,
+        };
       default:
         return state;
     }
@@ -57,6 +65,7 @@ const useRequest = () => {
     loading: () => dispatch(actionCreators.loading()),
     succeeded: (data = {}) => dispatch(actionCreators.succeeded(data)),
     failed: error => dispatch(actionCreators.failed(error)),
+    fulfilled: () => dispatch(actionCreators.fulfilled()),
   };
 
   return {

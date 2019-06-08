@@ -7,7 +7,7 @@ menu: hooks
 
 useRequest is a hook that is designed to handle request state. It uses `useReducer` under the hood and returns state and three actions to update it.
 
-## state
+## State
 
 The return state has the following properties
 
@@ -17,7 +17,7 @@ The return state has the following properties
 - error
 - data
 
-## actions
+## Actions
 
 ### loading
 - flips `loading` to `true`
@@ -34,6 +34,10 @@ The return state has the following properties
 - flips `loading` to `false`
 - flips `initialLoad` to `false`
 - populates `error` with the given argument
+
+### fulfilled
+- flips `loading` to `false`
+- flips `initialLoad` to `false`
 
 ## Example
 

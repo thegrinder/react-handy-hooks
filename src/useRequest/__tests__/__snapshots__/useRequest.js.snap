@@ -4,6 +4,7 @@ exports[`useRequest should return the correct object 1`] = `
 Object {
   "actions": Object {
     "failed": [Function],
+    "fulfilled": [Function],
     "loading": [Function],
     "succeeded": [Function],
   },
