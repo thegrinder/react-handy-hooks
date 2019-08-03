@@ -47,7 +47,7 @@ import { useRequest } from '../';
 <Playground>
   {() => {
     const UseRequestDemo = () => {
-      const { state, actions } = useRequest();
+      const [state, actions] = useRequest();
 
       const mockRequest = () => new Promise((resolve, reject) => {
         return setTimeout(() => {

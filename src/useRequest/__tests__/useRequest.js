@@ -10,20 +10,17 @@ const initialRequestState = {
 };
 
 describe('useRequest', () => {
-  it('should return the correct object', () => {
+  it('should return the correct array', () => {
     const { result } = renderHook(() => useRequest());
-    ['state', 'actions'].forEach(property => {
-      expect(result.current).toHaveProperty(property);
-    });
     expect(result.current).toMatchSnapshot();
   });
 
   it('should handle loading action', () => {
     const { result } = renderHook(() => useRequest());
     act(() => {
-      result.current.actions.loading();
+      result.current[1].loading();
     });
-    expect(result.current.state).toEqual({
+    expect(result.current[0]).toEqual({
       ...initialRequestState,
       error: null,
       loading: true,
@@ -35,9 +32,9 @@ describe('useRequest', () => {
     const { result } = renderHook(() => useRequest());
     const data = {};
     act(() => {
-      result.current.actions.succeeded(data);
+      result.current[1].succeeded(data);
     });
-    expect(result.current.state).toEqual({
+    expect(result.current[0]).toEqual({
       ...initialRequestState,
       data,
       loading: false,
@@ -50,9 +47,9 @@ describe('useRequest', () => {
     const { result } = renderHook(() => useRequest());
     const error = 'error';
     act(() => {
-      result.current.actions.failed(error);
+      result.current[1].failed(error);
     });
-    expect(result.current.state).toEqual({
+    expect(result.current[0]).toEqual({
       ...initialRequestState,
       error,
       loading: false,
@@ -63,9 +60,9 @@ describe('useRequest', () => {
   it('should handle fulfilled action', () => {
     const { result } = renderHook(() => useRequest());
     act(() => {
-      result.current.actions.fulfilled();
+      result.current[1].fulfilled();
     });
-    expect(result.current.state).toEqual({
+    expect(result.current[0]).toEqual({
       ...initialRequestState,
       loading: false,
       initialLoad: false,

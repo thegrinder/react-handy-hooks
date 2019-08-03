@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`useRequest should return the correct object 1`] = `
-Object {
-  "actions": Object {
-    "failed": [Function],
-    "fulfilled": [Function],
-    "loading": [Function],
-    "succeeded": [Function],
-  },
-  "state": Object {
+exports[`useRequest should return the correct array 1`] = `
+Array [
+  Object {
     "data": Object {},
     "error": null,
     "initialLoad": true,
     "loading": false,
     "succeeded": false,
   },
-}
+  Object {
+    "failed": [Function],
+    "fulfilled": [Function],
+    "loading": [Function],
+    "succeeded": [Function],
+  },
+]
 `;
