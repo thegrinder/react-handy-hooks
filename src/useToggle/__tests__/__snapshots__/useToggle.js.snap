@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useToggle should return the correct array 1`] = `
+Array [
+  false,
+  Object {
+    "toggle": [Function],
+    "toggleOff": [Function],
+    "toggleOn": [Function],
+  },
+]
+`;
