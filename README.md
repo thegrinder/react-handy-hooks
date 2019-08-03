@@ -4,6 +4,5 @@
 
 
 react-handy-hooks is a collection of react hooks that make building components easier and quicker.
-It takes care of the accessibility for you, too.
 
 https://thegrinder.github.io/react-handy-hooks
