@@ -1,0 +1,43 @@
+---
+name: useToggle
+menu: hooks
+---
+
+# useToggle
+
+useToggle is a simple hook that returns a boolean value and three actions to update it.
+
+## State
+
+Boolean, `false` by default. You can provide the initial value by calling the hook with an argument, e.g `useToggle(true)`.
+
+## Actions
+
+### toggle
+- toggles the current state value
+
+### toggleOn
+- sets the state value to `true`
+
+### toggleOff
+- sets the state value to `false`
+
+## Example
+
+import { Playground } from 'docz';
+import { useToggle } from '../';
+
+<Playground>
+  {() => {
+    const UseToggleDemo = () => {
+      const [state, actions] = useToggle();
+      return (
+        <button onClick={actions.toggle}>
+          {state ? 'on' : 'off'}
+        </button>
+      );
+    };
+
+    return <UseToggleDemo />
+  }}
+</Playground>
