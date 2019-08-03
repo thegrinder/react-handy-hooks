@@ -6,13 +6,15 @@
     "jest": true
   },
   "extends": ["airbnb", "prettier"],
-  "plugins": ["react", "prettier"],
+  "plugins": ["react", "prettier", "react-hooks"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     }
   },
   "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "no-underscore-dangle": "off",
     "consistent-return": "off",
     "react/jsx-uses-react": "error",
