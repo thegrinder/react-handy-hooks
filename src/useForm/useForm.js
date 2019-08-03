@@ -1,9 +1,11 @@
-import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import equal from 'fast-deep-equal';
 
 const useForm = ({ initialValues, validate, onSubmit, submitting = false }) => {
   const [values, updateValues] = useState(initialValues);
-  const [errors, updateErrors] = useState({});
+  const [errors, updateErrors] = useState(
+    validate ? validate(initialValues) : {}
+  );
   const [touched, updateTouched] = useState({});
 
   const runValidation = useCallback(
@@ -14,10 +16,6 @@ const useForm = ({ initialValues, validate, onSubmit, submitting = false }) => {
     },
     [validate]
   );
-
-  useEffect(() => {
-    runValidation(values);
-  }, [runValidation, values]);
 
   const invalid = useMemo(() => !!Object.keys(errors).length, [errors]);
 
