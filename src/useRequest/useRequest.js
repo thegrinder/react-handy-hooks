@@ -61,19 +61,19 @@ const reducer = (state, action) => {
 const useRequest = () => {
   const [state, dispatch] = useReducer(reducer, initialRequestState);
 
-  const boundActionCreators = {
-    loading: () => dispatch(actionCreators.loading()),
-    succeeded: (data = {}) => dispatch(actionCreators.succeeded(data)),
-    failed: error => dispatch(actionCreators.failed(error)),
-    fulfilled: () => dispatch(actionCreators.fulfilled()),
-  };
+  const boundActionCreators = useMemo(
+    () => ({
+      loading: () => dispatch(actionCreators.loading()),
+      succeeded: (data = {}) => dispatch(actionCreators.succeeded(data)),
+      failed: error => dispatch(actionCreators.failed(error)),
+      fulfilled: () => dispatch(actionCreators.fulfilled()),
+    }),
+    []
+  );
 
-  const value = useMemo(() => [state, boundActionCreators], [
-    state,
-    boundActionCreators,
-  ]);
+  const memoizedState = useMemo(() => state, [state]);
 
-  return value;
+  return [memoizedState, boundActionCreators];
 };
 
 export default useRequest;
