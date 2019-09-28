@@ -229,8 +229,6 @@ describe('useForm', () => {
           property
         );
       });
-      expect(result.current.getFieldProps('name')).toMatchSnapshot();
-      expect(result.current.getFieldProps('lastName')).toMatchSnapshot();
     });
   });
 
