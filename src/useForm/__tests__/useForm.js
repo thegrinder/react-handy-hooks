@@ -41,7 +41,6 @@ describe('useForm', () => {
     ].forEach(property => {
       expect(result.current).toHaveProperty(property);
     });
-    expect(result.current).toMatchSnapshot();
   });
 
   describe('invalid form flag', () => {
@@ -216,14 +215,20 @@ describe('useForm', () => {
           validate,
         })
       );
-      ['error', 'submitting', 'touched', 'value', 'onChange', 'onBlur'].forEach(
-        property => {
-          expect(result.current.getFieldProps('name')).toHaveProperty(property);
-          expect(result.current.getFieldProps('lastName')).toHaveProperty(
-            property
-          );
-        }
-      );
+      [
+        'error',
+        'submissionError',
+        'submitting',
+        'touched',
+        'value',
+        'onChange',
+        'onBlur',
+      ].forEach(property => {
+        expect(result.current.getFieldProps('name')).toHaveProperty(property);
+        expect(result.current.getFieldProps('lastName')).toHaveProperty(
+          property
+        );
+      });
       expect(result.current.getFieldProps('name')).toMatchSnapshot();
       expect(result.current.getFieldProps('lastName')).toMatchSnapshot();
     });
@@ -262,6 +267,33 @@ describe('useForm', () => {
         value: '',
         error: errorMessage,
       });
+    });
+
+    it('should reset submission error if any', () => {
+      const error = 'name error';
+      const submissionErrors = {
+        name: error,
+      };
+      const { result } = renderHook(() =>
+        useForm({
+          initialValues,
+          onSubmit,
+          submissionErrors,
+        })
+      );
+      expect(result.current.getFieldProps('name').submissionError).toEqual(
+        error
+      );
+
+      act(() => {
+        result.current
+          .getFieldProps('name')
+          .onChange({ target: { value: 'a' } });
+      });
+
+      expect(result.current.getFieldProps('name').submissionError).toEqual(
+        undefined
+      );
     });
   });
 

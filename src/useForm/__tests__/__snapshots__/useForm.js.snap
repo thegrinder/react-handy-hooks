@@ -23,14 +23,3 @@ Object {
   "value": "lastName",
 }
 `;
-
-exports[`useForm should return the correct object 1`] = `
-Object {
-  "getFieldProps": [Function],
-  "handleSubmit": [Function],
-  "invalid": false,
-  "pristine": true,
-  "resetForm": [Function],
-  "submitting": false,
-}
-`;
