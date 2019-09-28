@@ -22,3 +22,14 @@ export const isArrowRight = isKey('ArrowRight');
 export const isEnter = isKey('Enter');
 export const isEscape = isKey('Escape');
 export const isSpace = isKey(' ');
+
+export const filterOut = (obj, prop) =>
+  Object.keys(obj)
+    .filter(key => key !== prop)
+    .reduce(
+      (acc, next) => ({
+        ...acc,
+        [next]: obj[next],
+      }),
+      {}
+    );

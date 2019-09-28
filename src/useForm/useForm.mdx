@@ -71,12 +71,13 @@ It's a function that resets the form to its initialState;.
 
 ## Example
 
+import { useState, useCallback } from 'react';
 import { Playground } from 'docz';
 import { useForm } from '../';
 
 <Playground>
   {() => {
-    const Input = ({ error, touched, value, onChange, onBlur }) => (
+    const Input = ({ error, submissionError, touched, value, onChange, onBlur }) => (
       <div>
         <input
           onChange={onChange}
@@ -84,7 +85,11 @@ import { useForm } from '../';
           value={value}
         />
         <div>
-          {touched && error && <span style={{ color: 'red' }}>{error}</span>}
+          {(touched && error) || submissionError && (
+            <span style={{ color: 'red' }}>
+              {error || submissionError}
+            </span>
+          )}
         </div>
       </div>
     );
@@ -101,17 +106,29 @@ import { useForm } from '../';
       name: '',
     };
 
-    const onSubmit = values => {
-      alert(JSON.stringify(values));
-    };
 
     const Example = () => {
+      const [submissionErrors, setSubmissionErrors] = useState();
+
+      const onSubmit = useCallback(values => {
+        setTimeout(() => {
+          if (Math.floor(Math.random() * 2) == 0) {
+            alert(JSON.stringify(values));
+          } else {
+            setSubmissionErrors({ name: 'already exists' })
+          }
+        }, 1000);
+      }, []);
+
       const { pristine, invalid, getFieldProps, handleSubmit } = useForm({
         initialValues,
         validate,
         onSubmit,
+        submissionErrors,
       });
-      const { error, touched, value, onChange, onBlur } = getFieldProps('name');
+
+      const { error, touched, value, onChange, onBlur, submissionError } = getFieldProps('name');
+
       return (
         <form onSubmit={handleSubmit}>
           <Input
@@ -120,6 +137,7 @@ import { useForm } from '../';
             value={value}
             onChange={onChange}
             onBlur={onBlur}
+            submissionError={submissionError}
           />
           <div>
             <button disabled={pristine || invalid}>submit</button>
