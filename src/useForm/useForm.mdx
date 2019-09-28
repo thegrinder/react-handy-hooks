@@ -29,6 +29,9 @@ It's a function called with form values.
 
 It's a boolean passed down to getFieldProps and returned from the hook to facilitate usage with context. It's set to false by default
 
+### **submissionErrors**
+
+It's an object of errors that you can feed into the hook to handle showing submission errors.
 
 
 ## Returned object
@@ -41,6 +44,7 @@ It's a function that takes in a field's name, and returns all the handlers and f
 Here is the list of returned handlers/flags:
 
 - error
+- submissionError
 - touched
 - submitting
 - value
@@ -85,9 +89,14 @@ import { useForm } from '../';
           value={value}
         />
         <div>
-          {(touched && error) || submissionError && (
+          {touched && error && (
             <span style={{ color: 'red' }}>
-              {error || submissionError}
+              {error}
+            </span>
+          )}
+          {submissionError && (
+            <span style={{ color: 'red' }}>
+              {submissionError}
             </span>
           )}
         </div>
@@ -127,18 +136,11 @@ import { useForm } from '../';
         submissionErrors,
       });
 
-      const { error, touched, value, onChange, onBlur, submissionError } = getFieldProps('name');
+      const fieldProps = getFieldProps('name');
 
       return (
         <form onSubmit={handleSubmit}>
-          <Input
-            error={error}
-            touched={touched}
-            value={value}
-            onChange={onChange}
-            onBlur={onBlur}
-            submissionError={submissionError}
-          />
+          <Input {...fieldProps}/>
           <div>
             <button disabled={pristine || invalid}>submit</button>
           </div>
