@@ -7,8 +7,6 @@ menu: hooks
 
 useForm is a simple react hook that allows you to build forms quickly.
 
-
-
 ## Arguments
 
 useForm accepts an object with `initialValues`, `validate`, `submitting`, and `onSubmit` properties as its only argument.
@@ -32,7 +30,6 @@ It's a boolean passed down to getFieldProps and returned from the hook to facili
 ### **submissionErrors**
 
 It's an object of errors that you can feed into the hook to handle showing submission errors.
-
 
 ## Returned object
 
@@ -71,8 +68,6 @@ It's a wrapper function around the given onSubmit that normally should be applie
 
 It's a function that resets the form to its initialState;.
 
-
-
 ## Example
 
 import { useState, useCallback } from 'react';
@@ -102,7 +97,6 @@ import { useForm } from '../';
         </div>
       </div>
     );
-
     const validate = (values) => {
       let errors = {};
       if (values.name === '') {
@@ -110,15 +104,11 @@ import { useForm } from '../';
       }
       return errors;
     };
-
     const initialValues = {
       name: '',
     };
-
-
     const Example = () => {
       const [submissionErrors, setSubmissionErrors] = useState();
-
       const onSubmit = useCallback(values => {
         setTimeout(() => {
           if (Math.floor(Math.random() * 2) == 0) {
@@ -128,16 +118,13 @@ import { useForm } from '../';
           }
         }, 1000);
       }, []);
-
       const { pristine, invalid, getFieldProps, handleSubmit } = useForm({
         initialValues,
         validate,
         onSubmit,
         submissionErrors,
       });
-
       const fieldProps = getFieldProps('name');
-
       return (
         <form onSubmit={handleSubmit}>
           <Input {...fieldProps}/>
@@ -147,8 +134,7 @@ import { useForm } from '../';
         </form>
       );
     };
+    return <Example />;
+}}
 
-    return <Example />
-  }}
 </Playground>
-

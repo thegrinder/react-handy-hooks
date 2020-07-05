@@ -3,7 +3,7 @@ import { useState, useMemo } from 'react';
 const useToggle = (initial = false) => {
   const [on, set] = useState(initial);
   const actions = {
-    toggle: () => set(prevState => !prevState),
+    toggle: () => set((prevState) => !prevState),
     toggleOn: () => set(true),
     toggleOff: () => set(false),
   };

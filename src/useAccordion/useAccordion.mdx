@@ -25,7 +25,6 @@ Here is the list of returned props:
 
 If you spread these props over a custom component, make sure to properly pass down ref (typically, using `React.forwardRef`).
 
-
 ### **getSectionProps**
 
 It's a function that takes in a unique id and index, and returns all the props that should be applied to each tab header.
@@ -41,11 +40,9 @@ Here is the list of returned props:
 
 If you spread these props over a custom component, make sure to properly pass down ref (typically, using `React.forwardRef`).
 
-
 ### **isActiveSection**
 
 It's a simple function that takes in an index of the tab header/section and returns true or false depending whether it's an active one or not.
-
 
 import { Playground } from 'docz';
 import { useAccordion } from '../';
@@ -59,25 +56,25 @@ import { useAccordion } from '../';
         {props.isOpen ? 'close' : 'open'}
       </button>
     ));
-
     const AccordionSection = React.forwardRef((props, ref) => (
       <div {...props}>
-        <div ref={ref}>
-          {props.children}
-        </div>
+        <div ref={ref}>{props.children}</div>
       </div>
     ));
-
     const Example = () => {
-      const { getHeaderProps, getSectionProps, isActiveSection } = useAccordion();
+      const {
+        getHeaderProps,
+        getSectionProps,
+        isActiveSection,
+      } = useAccordion();
       const items = [
         {
           id: 'one',
-          section: 'section one'
+          section: 'section one',
         },
         {
           id: 'two',
-          section: 'section two'
+          section: 'section two',
         },
       ];
       return (
@@ -96,8 +93,6 @@ import { useAccordion } from '../';
         </div>
       );
     };
-
-    return <Example />
+    return <Example />;
   }}
 </Playground>
-

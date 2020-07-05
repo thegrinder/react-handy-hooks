@@ -19,7 +19,7 @@ const actionTypes = {
 const actionCreators = {
   loading: () => ({ type: actionTypes.LOADING }),
   succeeded: (data = {}) => ({ data, type: actionTypes.SUCCEEDED }),
-  failed: error => ({ error, type: actionTypes.FAILED }),
+  failed: (error) => ({ error, type: actionTypes.FAILED }),
   fulfilled: () => ({ type: actionTypes.FULFILLED }),
 };
 
@@ -65,7 +65,7 @@ const useRequest = () => {
     () => ({
       loading: () => dispatch(actionCreators.loading()),
       succeeded: (data = {}) => dispatch(actionCreators.succeeded(data)),
-      failed: error => dispatch(actionCreators.failed(error)),
+      failed: (error) => dispatch(actionCreators.failed(error)),
       fulfilled: () => dispatch(actionCreators.fulfilled()),
     }),
     []

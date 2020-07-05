@@ -10,7 +10,7 @@ const keyCodesToKey = {
   40: 'ArrowDown',
 };
 
-export const isKey = key => event => {
+export const isKey = (key) => (event) => {
   const eventKey = event.key || keyCodesToKey[event.keyCode];
   return key === eventKey;
 };
@@ -25,7 +25,7 @@ export const isSpace = isKey(' ');
 
 export const filterOut = (obj, prop) =>
   Object.keys(obj)
-    .filter(key => key !== prop)
+    .filter((key) => key !== prop)
     .reduce(
       (acc, next) => ({
         ...acc,

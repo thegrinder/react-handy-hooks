@@ -10,7 +10,7 @@ describe('useAccordion', () => {
 
   it('should return the correct object', () => {
     ['getHeaderProps', 'getSectionProps', 'isActiveSection'].forEach(
-      property => {
+      (property) => {
         expect(hook.current).toHaveProperty(property);
       }
     );

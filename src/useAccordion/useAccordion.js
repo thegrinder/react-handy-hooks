@@ -5,7 +5,7 @@ const useAccordion = () => {
   const headersRefs = useRef([]).current;
 
   const getHeaderRef = useCallback(
-    index => node => {
+    (index) => (node) => {
       if (node === null) {
         headersRefs.splice(index, 1);
       } else {
@@ -18,7 +18,7 @@ const useAccordion = () => {
   const sectionsRefs = useRef([]).current;
 
   const getSectionRef = useCallback(
-    index => node => {
+    (index) => (node) => {
       if (node === null) {
         sectionsRefs.splice(index, 1);
       } else {
@@ -30,12 +30,13 @@ const useAccordion = () => {
 
   const [activeSections, updateActiveSections] = useState([]);
 
-  const isActiveSection = useCallback(index => activeSections.includes(index), [
-    activeSections,
-  ]);
+  const isActiveSection = useCallback(
+    (index) => activeSections.includes(index),
+    [activeSections]
+  );
 
   const getSectionStyle = useCallback(
-    index => {
+    (index) => {
       const sectionRef = sectionsRefs[index];
       const baseStyle = {
         overflow: 'hidden',
@@ -49,17 +50,17 @@ const useAccordion = () => {
     [isActiveSection, sectionsRefs]
   );
 
-  const toggleAccordionSection = index =>
-    updateActiveSections(prevSections =>
+  const toggleAccordionSection = (index) =>
+    updateActiveSections((prevSections) =>
       prevSections.includes(index)
-        ? prevSections.filter(i => i !== index)
+        ? prevSections.filter((i) => i !== index)
         : prevSections.concat(index)
     );
 
   const [cursorPosition, updateCursorPosition] = useState(-1);
 
   const getOnClick = useCallback(
-    index => () => {
+    (index) => () => {
       updateCursorPosition(index);
       toggleAccordionSection(index);
     },
@@ -67,7 +68,7 @@ const useAccordion = () => {
   );
 
   const focusOnHeader = useCallback(
-    nextCursorPosition => {
+    (nextCursorPosition) => {
       const headerRef = headersRefs[nextCursorPosition];
       if (headerRef) {
         headerRef.focus();
@@ -76,12 +77,12 @@ const useAccordion = () => {
     [headersRefs]
   );
 
-  const getOnFocus = index => () => updateCursorPosition(index);
+  const getOnFocus = (index) => () => updateCursorPosition(index);
 
-  const getLinkingId = id => `${id}-tab`;
+  const getLinkingId = (id) => `${id}-tab`;
 
   const onKeyDown = useCallback(
-    e => {
+    (e) => {
       const { length } = headersRefs;
       if (isArrowUp(e)) {
         e.preventDefault();

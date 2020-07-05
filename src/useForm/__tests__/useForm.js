@@ -7,7 +7,7 @@ const initialValues = {
 };
 const errorMessage = 'required';
 const onSubmit = jest.fn();
-const validate = values => {
+const validate = (values) => {
   const errors = {};
   if (values.name === '') {
     errors.name = errorMessage;
@@ -38,7 +38,7 @@ describe('useForm', () => {
       'submitting',
       'handleSubmit',
       'resetForm',
-    ].forEach(property => {
+    ].forEach((property) => {
       expect(result.current).toHaveProperty(property);
     });
   });
@@ -223,7 +223,7 @@ describe('useForm', () => {
         'value',
         'onChange',
         'onBlur',
-      ].forEach(property => {
+      ].forEach((property) => {
         expect(result.current.getFieldProps('name')).toHaveProperty(property);
         expect(result.current.getFieldProps('lastName')).toHaveProperty(
           property

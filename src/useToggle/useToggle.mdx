@@ -14,12 +14,15 @@ Boolean, `false` by default. You can provide the initial value by calling the ho
 ## Actions
 
 ### toggle
+
 - toggles the current state value
 
 ### toggleOn
+
 - sets the state value to `true`
 
 ### toggleOff
+
 - sets the state value to `false`
 
 ## Example
@@ -31,13 +34,8 @@ import { useToggle } from '../';
   {() => {
     const UseToggleDemo = () => {
       const [state, actions] = useToggle();
-      return (
-        <button onClick={actions.toggle}>
-          {state ? 'on' : 'off'}
-        </button>
-      );
+      return <button onClick={actions.toggle}>{state ? 'on' : 'off'}</button>;
     };
-
-    return <UseToggleDemo />
+    return <UseToggleDemo />;
   }}
 </Playground>

@@ -23,7 +23,7 @@ const useForm = ({
   }, [submissionErrors]);
 
   const runValidation = useCallback(
-    formValues => {
+    (formValues) => {
       if (validate) {
         updateErrors(validate(formValues));
       }
@@ -39,7 +39,7 @@ const useForm = ({
   ]);
 
   const getFieldProps = useCallback(
-    name => ({
+    (name) => ({
       submitting,
       error: errors[name],
       submissionError: submitErrors && submitErrors[name],
@@ -48,7 +48,7 @@ const useForm = ({
       onChange(e) {
         const newValues = { ...values, [name]: e.target.value };
         if (submitErrors) {
-          updateSubmitErrors(prevErrors => filterOut(prevErrors, name));
+          updateSubmitErrors((prevErrors) => filterOut(prevErrors, name));
         }
         updateValues(newValues);
         runValidation(newValues);
@@ -61,7 +61,7 @@ const useForm = ({
   );
 
   const handleSubmit = useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
       if (!invalid && onSubmit) {
         if (submitErrors) {
