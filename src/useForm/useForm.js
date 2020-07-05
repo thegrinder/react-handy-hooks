@@ -45,7 +45,7 @@ const useForm = ({
       submissionError: submitErrors && submitErrors[name],
       touched: !!touched[name],
       value: values[name],
-      onChange(e) {
+      onChange: (e) => {
         const newValues = { ...values, [name]: e.target.value };
         if (submitErrors) {
           updateSubmitErrors((prevErrors) => filterOut(prevErrors, name));
@@ -53,7 +53,15 @@ const useForm = ({
         updateValues(newValues);
         runValidation(newValues);
       },
-      onBlur() {
+      setValue: (value) => {
+        const newValues = { ...values, [name]: value };
+        if (submitErrors) {
+          updateSubmitErrors((prevErrors) => filterOut(prevErrors, name));
+        }
+        updateValues(newValues);
+        runValidation(newValues);
+      },
+      onBlur: () => {
         updateTouched({ ...touched, [name]: true });
       },
     }),

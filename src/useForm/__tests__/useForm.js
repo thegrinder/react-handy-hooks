@@ -223,6 +223,7 @@ describe('useForm', () => {
         'value',
         'onChange',
         'onBlur',
+        'setValue',
       ].forEach((property) => {
         expect(result.current.getFieldProps('name')).toHaveProperty(property);
         expect(result.current.getFieldProps('lastName')).toHaveProperty(
@@ -287,6 +288,63 @@ describe('useForm', () => {
         result.current
           .getFieldProps('name')
           .onChange({ target: { value: 'a' } });
+      });
+
+      expect(result.current.getFieldProps('name').submissionError).toEqual(
+        undefined
+      );
+    });
+  });
+
+  describe('setValue', () => {
+    it('should properly handle value change', () => {
+      const { result } = renderHook(() =>
+        useForm({
+          initialValues,
+          onSubmit,
+          validate,
+        })
+      );
+      expect(result.current.getFieldProps('name')).toMatchObject({
+        value: initialValues.name,
+        error: undefined,
+      });
+
+      act(() => {
+        result.current.getFieldProps('name').setValue('test');
+      });
+      expect(result.current.getFieldProps('name')).toMatchObject({
+        value: 'test',
+        error: undefined,
+      });
+
+      act(() => {
+        result.current.getFieldProps('name').setValue('');
+      });
+      expect(result.current.getFieldProps('name')).toMatchObject({
+        value: '',
+        error: errorMessage,
+      });
+    });
+
+    it('should reset submission error if any', () => {
+      const error = 'name error';
+      const submissionErrors = {
+        name: error,
+      };
+      const { result } = renderHook(() =>
+        useForm({
+          initialValues,
+          onSubmit,
+          submissionErrors,
+        })
+      );
+      expect(result.current.getFieldProps('name').submissionError).toEqual(
+        error
+      );
+
+      act(() => {
+        result.current.getFieldProps('name').setValue('a');
       });
 
       expect(result.current.getFieldProps('name').submissionError).toEqual(
